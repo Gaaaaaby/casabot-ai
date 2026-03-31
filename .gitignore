@@ -10,7 +10,7 @@ __pycache__/
 
 # Datos y modelos (no los subimos, son muy pesados)
 data/*.csv
-models/*.joblib
+#models/*.joblib
 
 # Variables de entorno (contraseñas, keys, etc.)
 .env
