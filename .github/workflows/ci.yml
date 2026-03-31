@@ -13,39 +13,49 @@ on:
 # Los trabajos a ejecutar
 jobs:
   test:
-    name: 🧪 Run Tests
+    name: Run Tests
     runs-on: ubuntu-latest
     
     steps:
       # 1. Descargar el código del repositorio
-      - name: 📥 Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
       
       # 2. Configurar Python
-      - name: 🐍 Set up Python
+      - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.8'
       
       # 3. Instalar dependencias
-      - name: 📦 Install dependencies
+      - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
+
+      - name: Train model
+        run: |
+          python app/train_model.py
+      
+      # 5. Verificar que el modelo se creó
+      - name: Verify model exists
+        run: |
+          ls -la models/
+          test -f models/house_model.joblib
       
       # 4. Ejecutar tests con pytest
-      - name: 🧪 Run pytest
+      - name: Run pytest
         run: |
           pytest tests/ -v --tb=short
       
       # 5. (Opcional) Reportar cobertura de código
-      - name: 📊 Code coverage
+      - name: Code coverage
         run: |
           pip install pytest-cov
           pytest tests/ --cov=app --cov-report=xml
       
       # 6. (Opcional) Security scan de dependencias
-      - name: 🔒 Security scan
+      - name:  Security scan
         run: |
           pip install safety
           safety check -r requirements.txt --json || true
