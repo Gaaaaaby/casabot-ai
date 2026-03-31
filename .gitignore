@@ -1,0 +1,19 @@
+# Entorno virtual
+venv/
+
+# Archivos temporales de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Datos y modelos (no los subimos, son muy pesados)
+data/*.csv
+models/*.joblib
+
+# Variables de entorno (contraseñas, keys, etc.)
+.env
+
+# Logs
+*.log

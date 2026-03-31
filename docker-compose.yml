@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: casabot-api
+    ports:
+      - "8000:8000"
+    # Volumes simplificados para evitar errores de WSL
+    volumes:
+      - ./app:/app/app:cached
+      - ./models:/app/models:cached
+    environment:
+      - APP_NAME=CasaBot AI
+      - APP_VERSION=1.0.0
+      - PORT=8000
+      - DEBUG=True
+      - MODEL_PATH=models/house_model.joblib
+      - MIN_R2_THRESHOLD=0.50
+      - LOG_LEVEL=INFO
+    restart: unless-stopped
+    networks:
+      - casabot-network
+
+networks:
+  casabot-network:
+    driver: bridge
